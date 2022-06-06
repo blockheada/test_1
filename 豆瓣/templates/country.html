@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+		<!-- 引入 ECharts 文件 -->
+		<script src="static/assets/js/echarts.min.js"></script>
+		<title>豆瓣电影Top250数据分析可视化</title>
+		<meta content="" name="descriptison">
+		<meta content="" name="keywords">
+
+		<!-- Favicons -->
+		<link href="static/assets/img/favicon.png" rel="icon">
+		<link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+		<!-- Google Fonts -->
+		<link
+			href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+			rel="stylesheet">
+
+		<!-- Vendor CSS Files -->
+		<link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="static/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+		<link href="static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+		<link href="static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+		<link href="static/assets/vendor/venobox/venobox.css" rel="stylesheet">
+		<link href="static/assets/vendor/owl.carousel/static/assets/owl.carousel.min.css" rel="stylesheet">
+		<link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
+
+		<!-- Template Main CSS File -->
+		<link href="static/assets/css/style.css" rel="stylesheet">
+
+
+	</head>
+
+	<body>
+		<div class="adcenter">
+			<script src="http://www.cssmoban.com/include/new/ggad2_728x90.js"></script>
+		</div>
+		<!-- ======= Header ======= -->
+		<header id="header" class="fixed-top">
+			<div class="container d-flex align-items-center">
+
+				<h1 class="logo mr-auto"><a href="/index" style="
+  background-image: -webkit-linear-gradient(left, #cddc39, #ff9800 25%, #cddc39 50%, #ff9800 75%, #cddc39) !important;
+  -webkit-text-fill-color: transparent!important;
+  -webkit-background-clip: text!important;
+  -webkit-background-size: 200% 100%!important;
+  -webkit-animation: masked-animation 2s infinite linear !important;">DataAnalysis</a></h1>
+
+				<nav class="nav-menu d-none d-lg-block">
+					<ul>
+						<li class="active"><a href="/index">首页</a></li>
+						<li><a href="/movie">电影</a></li>
+						<li><a href="/score">评分</a></li>
+						<li><a href="/date">date</a></li>
+						<li><a href="/top9">Top8</a></li>
+						<li><a href="/country">country</a></li>
+						<li><a href="/type">type</a></li>
+						<li><a href="/word">词云</a></li>
+						<li><a href="/team">团队</a></li>
+					</ul>
+				</nav><!-- .nav-menu -->
+				<a href="#about" class="get-started-btn scrollto">Get Started</a>
+
+			</div>
+		</header><!-- End Header -->
+
+		<!-- ======= Hero Section ======= -->
+		<section id="hero" class="d-flex align-items-center">
+			<div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+				<div class="row justify-content-center">
+					<div class="col-xl-7 col-lg-9 text-center">
+						<h1>各国家或地区制片占比</h1>
+					</div>
+				</div>
+
+
+			</div>
+		</section><!-- End Hero -->
+		<!--第一个柱状图------->
+		<section id="about" class="about">
+			<div class="container" data-aos="fade-up">
+				<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+				<div id="main" style="width: 1100px;height:500px;"></div>
+				<script type="text/javascript">
+					var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+option = {
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a} <br/>{b}: {c} ({d}%)'
+  },
+
+  legend: {
+    data: {{country_name | tojson}}
+  },
+  series: [
+    {
+      name: 'Access From',
+      type: 'pie',
+      selectedMode: 'single',
+      radius: [0, '30%'],
+      label: {
+        position: 'inner',
+        fontSize: 14
+      },
+      labelLine: {
+        show: false
+      },
+      data:{{datas1 | tojson}}
+    },
+    {
+      name: 'Access From',
+      type: 'pie',
+      radius: ['45%', '60%'],
+      labelLine: {
+        length: 30
+      },
+      label: {
+        formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+        backgroundColor: '#F6F8FC',
+        borderColor: '#8C8D8E',
+        borderWidth: 1,
+        borderRadius: 4,
+        rich: {
+          a: {
+            color: '#6E7079',
+            lineHeight: 22,
+            align: 'center'
+          },
+          hr: {
+            borderColor: '#8C8D8E',
+            width: '100%',
+            borderWidth: 1,
+            height: 0
+          },
+          b: {
+            color: '#4C5058',
+            fontSize: 14,
+            fontWeight: 'bold',
+            lineHeight: 33
+          },
+          per: {
+            color: '#fff',
+            backgroundColor: '#4C5058',
+            padding: [3, 4],
+            borderRadius: 4
+          }
+        }
+      },
+      data: {{datas | tojson}}
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+				</script>
+			</div>
+		</section>
+		<!--第二个柱图------->
+
+
+		<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+		<div id="preloader"></div>
+		<!-- Vendor JS Files -->
+		<script src="static/assets/vendor/jquery/jquery.min.js"></script>
+		<script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="static/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+		<script src="static/assets/vendor/php-email-form/validate.js"></script>
+		<script src="static/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+		<script src="static/assets/vendor/counterup/counterup.min.js"></script>
+		<script src="static/assets/vendor/venobox/venobox.min.js"></script>
+		<script src="static/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+		<script src="static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+		<script src="static/assets/vendor/aos/aos.js"></script>
+		<!-- Template Main JS File -->
+		<script src="static/assets/js/main.js"></script>
+	</body>
+
+</html>
